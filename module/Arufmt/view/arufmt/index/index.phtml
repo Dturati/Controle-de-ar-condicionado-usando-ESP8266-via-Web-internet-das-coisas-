@@ -1,0 +1,158 @@
+<?php $this->headScript()->captureStart(); ?>
+//Modal nova ordem venda
+$(function(){
+$('#modal-novaOrdemVenda-negocios').on('show.bs.modal', function (event) {
+var button = $(event.relatedTarget);             // Button that triggered the modal
+var novaOrdemVenda_url = button.data('negocios-url')    // Extract info from data-* attributes
+
+var modal = $(this);
+modal.find('.modal-body').        // localizar corpo modal
+html('Carregando...').      // colocar html caso a requição demore
+load(novaOrdemVenda_url);         // inserir conteudo html AJAX
+})
+});
+
+$(function(){
+$('#modal-novaOrdemVenda-negocios').on('show.bs.modal', function (event) {
+var button = $(event.relatedTarget);             // Button that triggered the modal
+var novaOrdemVenda_url = button.data('negocios-url')    // Extract info from data-* attributes
+
+var modal = $(this);
+modal.find('.modal-body').        // localizar corpo modal
+html('Carregando...').      // colocar html caso a requição demore
+load(novaOrdemVenda_url);         // inserir conteudo html AJAX
+})
+});
+
+<?php $this->headScript()->captureEnd(); ?>
+
+
+<div class="scroll">
+    <h3>Temperatura</h3>
+    <div id="temperatura" type="text">00.00</div>
+    <h3>Humidade</h3>
+    <div  id="humidade" type="text">00.00</div>
+</div>
+
+<div class="scroll">
+    <h3>Controle</h3>
+    <div class="btn-group">
+        <button onclick="clicar16()" title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="bnt16"  data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/temp16">16</button>
+        <button onclick="clicar17()" title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="bnt17" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/temp17">17</button>
+        <button onclick="clicar18()" title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="bnt18" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/temp18">18</button>
+        <button onclick="clicar19()" title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="bnt19" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/temp19">19</button>
+        <button onclick="clicar20()" title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="bnt20" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/temp20">20</button>
+        <button1 onclick="liga()"  title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="liga" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/socket1On">Liga</button1>
+        <button onclick="desliga()"  title="Vender um produto" class="btn btn-xs btn-primary"  type="button" id="desliga" data-toggle="modal" data-target="#modal-novaOrdemVenda-negocios" data-negocios-url="http://192.168.206.55/socket1Off">Desliga</button>
+    </div>
+    </div>
+
+<br>
+<br>
+
+<script>
+    function clicar16(){
+        document.getElementById("bnt16").className = "btn btn-xs btn-success";
+        document.getElementById("bnt17").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt18").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt19").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt20").className= "btn btn-xs btn-primary";
+    }
+
+    function clicar17(){
+        document.getElementById("bnt16").className = "btn btn-xs btn-primary";
+        document.getElementById("bnt17").className= "btn btn-xs btn-success";
+        document.getElementById("bnt18").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt19").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt20").className= "btn btn-xs btn-primary";
+    }
+
+    function clicar18(){
+        document.getElementById("bnt16").className = "btn btn-xs btn-primary";
+        document.getElementById("bnt17").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt18").className= "btn btn-xs btn-success";
+        document.getElementById("bnt19").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt20").className= "btn btn-xs btn-primary";
+    }
+
+    function clicar19(){
+        document.getElementById("bnt16").className = "btn btn-xs btn-primary";
+        document.getElementById("bnt17").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt18").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt19").className= "btn btn-xs btn-success";
+        document.getElementById("bnt20").className= "btn btn-xs btn-primary";
+    }
+
+    function clicar20(){
+        document.getElementById("bnt16").className = "btn btn-xs btn-primary";
+        document.getElementById("bnt17").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt18").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt19").className= "btn btn-xs btn-primary";
+        document.getElementById("bnt20").className= "btn btn-xs btn-success";
+    }
+
+    function liga(){
+        document.getElementById("liga").className = "btn btn-xs btn-success";
+        document.getElementById("desliga").className= "btn btn-xs btn-primary";
+    }
+
+    function desliga(){
+        document.getElementById("liga").className = "btn btn-xs btn-primary";
+        document.getElementById("desliga").className= "btn btn-xs btn-success";
+    }
+</script>
+
+<script>
+
+    function dht11() {
+        var temperatura = document.getElementById('temperatura').innerHTML;
+        var humidade = document.getElementById('humidade').innerHTML;
+        //alert(temperatura);
+        function setCookie(name, value, duration) {
+            var cookie = name + "=" + escape(value);
+
+            document.cookie = cookie;
+        }
+
+        setCookie("temp", temperatura);
+        setCookie("hum", humidade);
+    }
+    setInterval(function(){
+        dht11();
+    },10);
+
+</script>
+
+<div class="row">
+    <a href="<?php
+    echo $this->url('gravar',array("action" =>"gravar","temp" => $_COOKIE['temp'],"hum" => $_COOKIE['hum']));
+    ?>" class="btn btn-default">Gravar</a>
+
+    <a href="<?php
+    echo $this->url('relatorio',array("action" =>"relatorio","temp" => $_COOKIE['temp'],"hum" => $_COOKIE['hum']));
+    ?>" class="btn btn-default">Relatorio</a>
+
+</div>
+
+<div class="modal fade" id="modal-novaOrdemVenda-negocios">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
